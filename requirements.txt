@@ -1,3 +1,0 @@
-functions-framework==3.*
-git+https://github.com/Navbryce/insta-receipt#egg=insta_receipt
-flask==1.1.2
