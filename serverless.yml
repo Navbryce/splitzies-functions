@@ -1,0 +1,13 @@
+org: navbryce
+app: splitzies-functions
+service: splitzies-functions
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: python3.8
+
+functions:
+  generate_sheet:
+    handler: generate_sheet.handler
