@@ -10,8 +10,9 @@ from requests_toolbelt.multipart import decoder
 
 
 def main(event, context):
+
     form_data = __parse_multipart_formdata(
-        event["body"], event["headers"]["Content-Type"]
+        event["body"], standardize_headers(event["headers"])["content-type"]
     )
     receipt_file_field = form_data["file"]
     if (
@@ -22,13 +23,21 @@ def main(event, context):
     ):
         return {"statusCode": 400, "body": "Must be an HTML file"}
     receipt = ReceiptParser().parse(io.StringIO(receipt_file_field.data))
+    # TODO: Secure CORS
     return {
         "statusCode": 200,
-        "headers": {"Content-Type": "application/json"},
+        "headers": {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+        },
         "body": json.dumps(
             GoogleSpreadSheetGenerator().generate_spreadsheet(receipt).to_serializable()
         ),
     }
+
+
+def standardize_headers(headers: Dict[str, any]) -> Dict[str, any]:
+    return {key.lower(): value for key, value in headers.items()}
 
 
 @dataclass

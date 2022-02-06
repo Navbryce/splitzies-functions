@@ -5,7 +5,7 @@ description = "Provides API for parsing receipts"
 authors = ["Navbryce <plunkett.bryce.m@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.9"
 insta_receipt = {git = "https://github.com/Navbryce/insta-receipt", branch = "main"}
 requests-toolbelt = "^0.9.1"
 
